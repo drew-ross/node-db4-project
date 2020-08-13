@@ -17,4 +17,11 @@ router.get('/:id/shoppingList', (req, res) => {
     .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
 });
 
+router.get('/:id/instructions', (req, res) => {
+  const { id } = req.params;
+  recDb.getInstructions(id)
+    .then(steps => res.status(200).json(steps))
+    .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
+});
+
 module.exports = router;

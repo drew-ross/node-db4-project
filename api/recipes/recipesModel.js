@@ -23,5 +23,12 @@ function getShoppingList(id) {
 }
 
 function getInstructions(id) {
-
+  return db('recipe_ingredients as ri')
+    .join('recipes as r', 'recipe_id', 'r.id')
+    .join('ingredients as i', 'ingredient_id', 'i.id')
+    .select('ri.id', 'ri.step', 'ri.quantity', 'r.name', 'i.name', 'ri.instructions')
+    .where('ri.recipe_id', id)
+    .orderBy('ri.step')
+    .then(steps => steps)
+    .catch(err => console.log(err));
 }
